@@ -1,30 +1,14 @@
-## INTRODUCTION
+## INFORMATION
 
-The OOP Hook Example module is a DESCRIBE_THE_MODULE_HERE.
+OO Hooks are a new way introduced in Drupal 11.1 and available in 
+Drupal 11.x-dev.
 
-The primary use case for this module is:
+See https://www.drupal.org/node/3442349
 
-- Use case #1
-- Use case #2
-- Use case #3
+OO Hooks are classes placed in `src/Hook` and having the `#[Hook]` attribute.
 
-## REQUIREMENTS
+OO Hook Classes are **autowired** - they use the Symfony autowiring system, that
+allows calling services without declaring them in the yaml file. However, those
+services need to be declared in a special way.
 
-DESCRIBE_MODULE_DEPENDENCIES_HERE
-
-## INSTALLATION
-
-Install as you would normally install a contributed Drupal module.
-See: https://www.drupal.org/node/895232 for further information.
-
-## CONFIGURATION
-- Configuration step #1
-- Configuration step #2
-- Configuration step #3
-
-## MAINTAINERS
-
-Current maintainers for Drupal 10:
-
-- FIRST_NAME LAST_NAME (NICKNAME) - https://www.drupal.org/u/NICKNAME
-
+See https://www.drupal.org/node/3218156
