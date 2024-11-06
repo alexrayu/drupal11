@@ -12,6 +12,8 @@
 /web/web.config
 /web/robots.txt
 drupal_config
+/dumps/
+.lando.local.yml
 
 # Ignore sensitive information
 /web/sites/*
