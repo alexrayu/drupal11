@@ -2,7 +2,22 @@ name: drupal11
 recipe: drupal11
 config:
   webroot: web
+  xdebug: true
+  config:
+    database: .lando/mysql.cnf
 services:
+  appserver:
+    scanner:
+      maxRedirects: 5
+      timeout: 30000
+      retry: 4
+    config:
+      php: .lando/php.ini
+    overrides:
+      environment:
+        # Support debugging CLI with Xdebug.
+        PHP_IDE_CONFIG: "serverName=appserver"
+        XDEBUG_SESSION_START: lando
   mailhog:
     type: 'mailhog:v1.0.1'
     portforward: false
@@ -25,6 +40,23 @@ tooling:
     description: Disable Xdebug for Apache
     cmd: "rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && /etc/init.d/apache2 reload"
     user: root
+  meta:
+    service: appserver
+    description: "Generate PHPStorm Metadata"
+    cmd:
+      - drush generate phpstorm-metadata -y
+  reset:
+    service: appserver
+    description: "Reset the installation"
+    cmd:
+      - composer install
+      - drush sql-drop -y
+      - drush sqlc < $LANDO_MOUNT/dumps/dump.sql
+      - drush updb -y
+      - drush updb -y
+      - drush cim -y
+      - drush user-password Super-Admin dev
+
 proxy:
   pma:
     - pma.drupal11.lndo.site
