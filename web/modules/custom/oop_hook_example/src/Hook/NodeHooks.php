@@ -2,6 +2,7 @@
 
 namespace Drupal\oop_hook_example\Hook;
 
+use Drupal\butils\BUtils;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Hook\Attribute\Hook;
@@ -27,10 +28,13 @@ class NodeHooks {
    *   The entity type manager.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
    *   The module handler.
+   * @param \Drupal\butils\BUtils $butils
+   *   Back end utils.
    */
   public function __construct(
     EntityTypeManagerInterface $entityTypeManager,
     protected ModuleHandlerInterface $moduleHandler,
+    protected BUtils $butils,
   ) {
     $this->nodeStorage = $entityTypeManager->getStorage('node');
   }
@@ -44,6 +48,7 @@ class NodeHooks {
   #[Hook('node_update')]
   public function nodeSave(NodeInterface $node): void {
     #@dev; Debug point.
+    $account = $this->butils->currentUser();
     $a = 1;
   }
 
